@@ -71,7 +71,23 @@ main .content-screen {
 
 main .content-screen .content {
     flex-grow: 1;
-    background-color: red;
+}
+
+main .content-screen .content .matrix {
+    display: grid;
+    grid-template: repeat(5, 1fr) / repeat(5, 1fr);
+    gap: 0.5rem;
+
+    width: 100%;
+    aspect-ratio: 1 /1;
+
+    padding: 0.5rem;
+
+    background-color: var(--color-dark-main);
+}
+
+main .content-screen .content .matrix .cell {
+    background-color: var(--color-back);
 }
 
 main .content-screen .buttons {
