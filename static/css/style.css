@@ -17,6 +17,7 @@ body {
     grid-template: minmax(min-content, max-content) 1fr minmax(min-content, max-content) / 1fr;
     min-height: 100vh;
     font-family: 'Montserrat';
+    background-color: var(--color-back);
 }
 
 /*
@@ -52,4 +53,18 @@ header .title button {
 header .title button img {
     height: 2.5rem;
     aspect-ratio: 1 / 1;
+}
+
+/*
+    Footer
+*/
+
+footer {
+    text-align: center;
+    padding: 1rem;
+
+    font-weight: 700;
+
+    color: var(--color-back);
+    background-color: var(--color-main);
 }
