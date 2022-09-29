@@ -1,0 +1,19 @@
+:root {
+    --color-light-main: #8d6448;
+    --color-main: #613c21;
+    --color-dark-main: #473123;
+
+    --color-back: #e6e4d8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    grid-template: minmax(min-content, max-content) 1fr minmax(min-content, max-content) / 1fr;
+    min-height: 100vh;
+}
