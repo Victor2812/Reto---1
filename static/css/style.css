@@ -2,7 +2,6 @@
     --color-light-main: #8d6448;
     --color-main: #613c21;
     --color-dark-main: #473123;
-
     --color-back: #e6e4d8;
 }
 
@@ -26,6 +25,8 @@ body {
 
 header {
     width: 100%;
+    background-image: url("../img/choco-dripping.svg");
+    height: 170px;
 }
 
 header .title {
@@ -35,7 +36,7 @@ header .title {
     justify-content: space-between;
     align-items: center;
 
-    background-color: var(--color-main);
+    /*background-color: var(--color-main);*/
     color: var(--color-back);
     padding: 1rem;
 }
@@ -54,6 +55,13 @@ header .title button img {
     height: 2.5rem;
     aspect-ratio: 1 / 1;
 }
+
+/*
+header #dripping-container {
+    background-image: url("../img/choco-dripping.svg");
+    height: 50px;
+}
+*/
 
 /*
     Main
@@ -94,6 +102,7 @@ main .content-screen .buttons {
     flex-direction: row;
     justify-content: center;
     padding-top: 1rem;
+    padding-bottom: 2rem;
 }
 
 main .content-screen .buttons button {
@@ -125,6 +134,13 @@ main .content-screen .buttons button:active {
     transition: all ease-in 0.09s;
 }
 
+main .content-screen .buttons #btn-aniadir {
+    display: none;
+}
+
+main .content-screen .buttons #btn-vaciar {
+    display: none;
+}
 
 /*
     Footer
