@@ -1,46 +1,34 @@
 class BaseMachine {
     #state = false;
-    #mode = false;  // false = auto, true = manual
+    #mode = true;  // false = auto, true = manual
 
-    changeState(newState) {
+    changeState(newState, callback) {
         this.#state = newState;
-    }
-
-    changeMode(newMode) {
-        this.#mode = newMode;
     }
 
     getState() {
         return this.#state;
     }
 
-    getCurrentMode() {
+    changeMode(newMode, callback) {
+        this.#mode = newMode;
+    }
+
+    getMode() {
         return this.#mode;
     }
 }
 
 class ConsoleMachine extends BaseMachine {
-    changeState(newState) {
+    changeState(newState, callback) {
         console.log('changeState => ' + newState);
         super.changeState(newState);
+        callback(this.getState());
     }
 
-    changeMode(newMode) {
+    changeMode(newMode, callback) {
         console.log('changeMode => ' + newMode);
         super.changeMode(newMode);
-    }
-}
-
-class MachienController {
-    constructor(machine) {
-        this.machine = machine;
-    }
-
-    changeMode(manual) {
-        this.machine.changeMode(manual === true);
-    }
-
-    getCurrentMode() {
-        return this.machine.getCurrentMode();
+        callback(this.getMode());
     }
 }
