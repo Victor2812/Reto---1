@@ -52,7 +52,7 @@ header .title button#onoff {
     background-color: transparent;
 }
 
-header .title button#onoff.off {
+header .title button#onoff:not(.active) {
     animation: start-button-anim ease-in-out 2.5s infinite;
 }
 
@@ -71,11 +71,11 @@ header .title button img {
     aspect-ratio: 1 / 1;
 }
 
-header .title button.on img.off {
+header .title button.active img.off {
     display: none;
 }
 
-header .title button.off img.on {
+header .title button:not(.active) img.on {
     display: none;
 }
 
@@ -109,7 +109,7 @@ main .content-screen .content img {
 }
 
 main .content-screen .content p {
-    color: #473123;
+    color: var(--color-dark-main);
     font-weight: 900;
     font-size: 3rem;
     line-height: 2.8rem;
@@ -121,7 +121,6 @@ main .content-screen .content .modo {
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    color: #473123;
     font-weight: 900;
     font-size: 3rem;
 }
@@ -151,7 +150,7 @@ main .content-screen .buttons {
     padding-bottom: 2rem;
 }
 
-main .content-screen .buttons button {
+main .content-screen button {
     border: none;
     border-radius: 9999px;
 
@@ -168,12 +167,12 @@ main .content-screen .buttons button {
     transition: all ease-in 0.09s;
 }
 
-main .content-screen .buttons button:hover {
+main .content-screen button:hover, button.active {
     background-color: var(--color-light-main);
     scale: 1.05;
 }
 
-main .content-screen .buttons button:active {
+main .content-screen button:active {
     background-color: var(--color-dark-main);
     scale: 0.9;
 }
