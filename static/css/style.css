@@ -34,7 +34,7 @@ header .title {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     /*background-color: var(--color-main);*/
@@ -47,14 +47,36 @@ header .title h1 {
     font-size: 2.5rem;
 }
 
-header .title button {
+header .title button#onoff {
     border: none;
     background-color: transparent;
 }
 
+header .title button#onoff.off {
+    animation: start-button-anim ease-in-out 2.5s infinite;
+}
+
+@keyframes start-button-anim {
+    0% {
+        scale: 1;
+    }
+    50% {
+        scale: 1.25;
+    }
+}
+
+
 header .title button img {
     height: 2.5rem;
     aspect-ratio: 1 / 1;
+}
+
+header .title button.on img.off {
+    display: none;
+}
+
+header .title button.off img.on {
+    display: none;
 }
 
 /*
@@ -62,6 +84,10 @@ header .title button img {
 */
 
 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     padding: 1rem;
     min-height: 100%;
 }

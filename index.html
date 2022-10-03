@@ -19,25 +19,13 @@
             <h1>.chocolate</h1>
 
             <!-- Temporal -->
-            <button id="onoff">
-                <img alt="" src="static/img/button_off.png" />
+            <button id="onoff" class="off">
+                <img aria-hidden="true" class="off" alt="" src="static/img/button_off.png" />
+                <img aria-hidden="true" class="on" alt="" src="static/img/button_on.png" />
             </button>
         </div>
     </header>
     <main>
-        <div class="content-screen">
-            <div class="content">
-                <div class="color-container">
-                    <img alt="" src="static/img/choco-con-leche.svg">
-                    <p>chocolate</p>
-                    <p class="txt-color">con leche</p> 
-                </div>         
-            </div>
-            <div class="buttons">
-                <button>siguiente</button>
-            </div>
-        </div>
-
         <div class="content-screen">
             <div class="content">
                 <div class="modo">
@@ -49,6 +37,19 @@
             <div class="buttons">
                 <button>añadir</button>
                 <button>vaciar</button>
+            </div>
+        </div>
+
+        <div class="content-screen">
+            <div class="content">
+                <div class="color-container">
+                    <img alt="" src="static/img/choco-con-leche.svg">
+                    <p>chocolate</p>
+                    <p class="txt-color">con leche</p> 
+                </div>         
+            </div>
+            <div class="buttons">
+                <button>siguiente</button>
             </div>
         </div>
 

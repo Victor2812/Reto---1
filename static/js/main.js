@@ -1,6 +1,12 @@
 window.onload = function (){
     const matrix_size = [5, 5];
 
+    const onoff = document.querySelector('#onoff');
+    onoff.addEventListener('click', function(e){
+        onoff.classList.toggle("off");
+        onoff.classList.toggle("on");
+    });
+
     const auto = document.getElementById('auto');
     const manual = document.getElementById('manual');
 
