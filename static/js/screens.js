@@ -1,7 +1,15 @@
 class Screen {
+    /**
+     * Crea la pantalla
+     * @param {Element} content Elemento contenedor de los contenidos
+     * @param {Element} buttons Elemento contenedor de los botones
+     */
     constructor(content, buttons) {
         this.content = content;
         this.buttons = buttons;
+
+        // Contenido propio de la pantalla
+        this.selfContent = document.createElement('div');
     }
 
     /**
@@ -16,12 +24,13 @@ class Screen {
      * Dibuja el contenido en pantalla
      */
     drawContent() {
-        console.log('Screen -> draw content');
+        this.clearScreen();
+        this.content.appendChild(this.selfContent);
     }
 
     /**
-     * Actualiza las celdas de la matriz
-     * @param {Array} data Información para actualizar la pantalla
+     * Actualiza la pantalla con datos nuevos
+     * @param {*} data Información para actualizar la pantalla
      */
     updateContent(data) {
         console.log('Screen -> update content data:', data);
@@ -29,19 +38,21 @@ class Screen {
 }
 
 class ModeSelectorScreen extends Screen {
+    /**
+     * Crea la pantalla del selector de modo
+     * @param {Element} content Elemento contenedor de los contenidos
+     * @param {Element} buttons Elemento contenedor de los botones
+     * @param {Boolean} defaultMode Modo por defecto, automático (false) o manual (true)
+     */
     constructor(content, buttons, defaultMode) {
         super(content, buttons);
         this.mode = defaultMode;
-    }
-
-    drawContent() {
+        
         // TODO: aplicar modo por defecto
-        this.clearScreen();
-        this.content.innerHTML = '<div class="modo">\
-            <div id="auto">auto</div>\
+        this.selfContent.className = 'modo';
+        this.selfContent.innerHTML = '<div id="auto">auto</div>\
             <div id="separador">|</div>\
-            <div id="manual">manual</div>\
-        </div>';
+            <div id="manual">manual</div>';
     }
 
     /**
@@ -54,22 +65,24 @@ class ModeSelectorScreen extends Screen {
 }
 
 class MatrixScreen extends Screen {
+    /**
+     * Crea la pantalla de la matriz
+     * @param {Element} content Elemento contenedor de los contenidos
+     * @param {Element} buttons Elemento contenedor de los botones
+     * @param {Array} size Array unidimensional de dos valores [Width, Height]
+     */
     constructor(content, buttons, size) {
         super(content, buttons);
         this.size = size;
-    }
 
-    drawContent() {
-        this.clearScreen();
-
-        this.content.innerHTML = '<div class="matrix"></div>';
-        let e = this.content.querySelector('.matrix');
+        this.selfContent = document.createElement('div');
+        this.selfContent.className = 'matrix';
         for (let x = 0; x < this.size[0]; x++) {
             for (let y = 0; y < this.size[1]; y++) {
                 let cell = document.createElement('div');
                 cell.classList.add('cell');
                 cell.id = `r${x}c${y}`;
-                e.appendChild(cell);
+                this.selfContent.appendChild(cell);
             }
         }
     }
@@ -95,5 +108,57 @@ class MatrixScreen extends Screen {
                 }
             }
         }
+    }
+}
+
+class ColorScreen extends Screen {
+    /**
+     * Crea la pantalla de la muestra de colr
+     * @param {Element} content Elemento contenedor de los contenidos
+     * @param {Element} buttons Elemento contenedor de los botones
+     */
+    constructor(content, buttons) {
+        super(content, buttons);
+
+        this.color = false; // chocolate con leche (false), chocolate blanco (true)
+
+        this.selfContent.className = 'color-container';
+
+        this.img = document.createElement('img');
+        this.img.alt = '';
+        this.img.src = '';
+        this.selfContent.appendChild(this.img);
+
+        let p = document.createElement('p');
+        p.textContent = 'chocolate';
+        this.selfContent.appendChild(p);
+
+        // parrafo con texto distintivo dependiendo del color
+        this.text = document.createElement('p');
+        this.selfContent.appendChild(this.text);
+    }
+
+    /**
+     * Acutaliza el color que se muestra
+     * @param {Boolean} data Chocolate blanco (true) o con leche (false)
+     */
+    updateContent(data) {
+        this.color = data;
+
+        if (data) {
+            this.img.src = 'static/img/choco-blanco.svg';
+            this.text.textContent = 'blanco';
+        } else {
+            this.img.src = 'static/img/choco-con-leche.svg';
+            this.text.textContent = 'con leche';
+        }
+    }
+
+    /**
+     * Obtiene el color del chocolate mostrado
+     * @returns Chocolate blanco (true) o con leche (false)
+     */
+    getColor() {
+        return self.color;
     }
 }

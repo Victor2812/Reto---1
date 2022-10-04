@@ -6,23 +6,25 @@ window.onload = function() {
 
     const manager = new StateManager(new ConsoleMachine());
 
-    let modeSelector = new ModeSelectorScreen(content, buttons, true);
+    let modeSelectorScreen = new ModeSelectorScreen(content, buttons, true);
     let matrixScreen = new MatrixScreen(content, buttons, matrix_size);
+    let colorScreen = new ColorScreen(content, buttons);
     
     // Inicio de la app
-    modeSelector.drawContent();
+    modeSelectorScreen.drawContent();
 
     // Funcionalidad del botón de encendido y apagado
     document.querySelector('#onoff').addEventListener('click', async function() {
         this.classList.toggle('active');
         
-        await manager.setMode(modeSelector.getMode());
+        await manager.setMode(modeSelectorScreen.getMode());
 
         await manager.toggleState();
         if (await manager.getState()) {
             matrixScreen.drawContent();
         } else {
-            modeSelector.drawContent();
+            // modeSelectorScreen
+            modeSelectorScreen.drawContent();
         }
     });
 };

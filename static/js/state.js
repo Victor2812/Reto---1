@@ -1,6 +1,6 @@
 class BaseMachine {
     #state = false;
-    #mode = true;  // false = auto, true = manual
+    #mode = false;
 
     async changeState(newState) {
         this.#state = newState;
