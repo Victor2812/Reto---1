@@ -64,6 +64,30 @@ class ModeSelectorScreen extends Screen {
     }
 }
 
+class LoadScreen extends Screen {
+    /**
+     * Crea la pantalla del selector de modo
+     * @param {Element} content Elemento contenedor de los contenidos
+     * @param {Element} buttons Elemento contenedor de los botones
+     * @param {Boolean} defaultMode Modo por defecto, automático (false) o manual (true)
+     */
+    constructor(content, buttons, defaultMode) {
+        super(content, buttons);
+        this.mode = defaultMode;
+        
+        this.selfContent.className = 'load';
+        this.selfContent.innerHTML = '<div class="loader"></div>';
+    }
+
+    /**
+     * Obtiene el modo que el usuario quiere para la máquina.
+     * @returns Boolean
+     */
+    getMode() {
+        return this.mode;
+    }
+}
+
 class MatrixScreen extends Screen {
     /**
      * Crea la pantalla de la matriz
