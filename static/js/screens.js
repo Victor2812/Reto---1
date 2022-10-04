@@ -75,7 +75,6 @@ class MatrixScreen extends Screen {
         super(content, buttons);
         this.size = size;
 
-        this.selfContent = document.createElement('div');
         this.selfContent.className = 'matrix';
         for (let x = 0; x < this.size[0]; x++) {
             for (let y = 0; y < this.size[1]; y++) {
@@ -95,7 +94,7 @@ class MatrixScreen extends Screen {
         // Asumiendo que el tamaño de data es el mismo que el de la matriz
         for (let x = 0; x < this.size[0]; x++) {
             for (let y = 0; y < this.size[1]; y++) {
-                let cell = this.content.querySelector(`r${x}c${y}`);
+                let cell = this.selfContent.querySelector(`#r${x}c${y}`);
 
                 if (!cell) throw `La celda fila:${y} columna:${x} no existe.`
 

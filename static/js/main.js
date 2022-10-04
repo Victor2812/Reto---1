@@ -20,6 +20,7 @@ window.onload = function() {
         await manager.setMode(modeSelectorScreen.getMode());
 
         await manager.toggleState();
+        
         if (await manager.getState()) {
             matrixScreen.drawContent();
         } else {
