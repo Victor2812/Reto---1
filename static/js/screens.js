@@ -50,9 +50,9 @@ class ModeSelectorScreen extends Screen {
         
         // TODO: aplicar modo por defecto
         this.selfContent.className = 'modo';
-        this.selfContent.innerHTML = '<div id="auto">auto</div>\
-            <div id="separador">|</div>\
-            <div id="manual">manual</div>';
+        this.selfContent.innerHTML = '<button id="auto" class="btn-mode-selected">auto</button>\
+            <span>|</span>\
+            <button id="manual" class="btn-mode-unselected">manual</button>';
     }
 
     /**

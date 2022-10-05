@@ -104,6 +104,10 @@ main .content-screen .content {
     align-items: center;
 }
 
+/*
+    Main - Load Screen
+*/
+
 main .content-screen .content .loader {
     font-size: 10px;
     margin: 30% auto;
@@ -125,6 +129,7 @@ main .content-screen .content .loader:before {
     left: 0;
     content: '';
 }
+
 main .content-screen .content .loader:after {
     background: var(--color-back);
     width: 75%;
@@ -148,6 +153,84 @@ main .content-screen .content .loader:after {
     }
 }
 
+/*
+    Main - Mode Selector Screen
+*/
+
+main .content-screen .content .modo {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    /*
+    font-weight: 900;
+    font-size: 3rem;
+    */
+}
+/*
+main .content-screen .content .modo {
+    display: flex;
+    justify-content: center;
+}
+*/
+main .content-screen .content .modo button {
+    border: none;
+    font-size: 3.5rem;
+    font-weight: 900;
+    background-color: var(--color-back);
+    color: var(--color-light-main);
+
+    display: inline-block;
+    position: relative;
+}
+
+main .content-screen .content .modo .btn-mode-unselected:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.5rem;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-dark-main);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+main .content-screen .content .modo button:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom  left;
+}
+
+main .content-screen .content .modo .btn-mode-selected {
+    color: var(--color-dark-main);
+
+    display: inline-block;
+    position: relative; 
+}
+
+main .content-screen .content .modo .btn-mode-selected:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.5rem;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-light-main);
+}
+
+main .content-screen .content .modo span {
+    border: none;
+    font-size: 3.5rem;
+    font-weight: 900;
+    padding: 0 1rem 0;
+    color: var(--color-dark-main);
+}
+
+/*
+    Main - Color Screen
+*/
+
 main .content-screen .content img {
     padding-bottom: 1.5em;
 }
@@ -160,14 +243,11 @@ main .content-screen .content p {
     padding: 0 2.8rem 0;
 }
 
-main .content-screen .content .modo {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: 3rem;
-}
+
+
+/*
+    Main - Matrix Screen
+*/
 
 main .content-screen .content .matrix {
     display: grid;
@@ -186,6 +266,10 @@ main .content-screen .content .matrix .cell {
     background-color: var(--color-back);
 }
 
+/*
+    Main - Botones
+*/
+
 main .content-screen .buttons {
     display: flex;
     flex-direction: row;
@@ -194,7 +278,7 @@ main .content-screen .buttons {
     padding-bottom: 2rem;
 }
 
-main .content-screen button {
+main .content-screen .buttons button {
     border: none;
     border-radius: 9999px;
 
@@ -211,12 +295,12 @@ main .content-screen button {
     transition: all ease-in 0.09s;
 }
 
-main .content-screen button:hover, button.active {
+main .content-screen .buttons button:hover, button.active {
     background-color: var(--color-light-main);
     scale: 1.05;
 }
 
-main .content-screen button:active {
+main .content-screen .buttons button:active {
     background-color: var(--color-dark-main);
     scale: 0.9;
 }
