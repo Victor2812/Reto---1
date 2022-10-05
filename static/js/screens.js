@@ -46,13 +46,34 @@ class ModeSelectorScreen extends Screen {
      */
     constructor(content, buttons, defaultMode) {
         super(content, buttons);
-        this.mode = defaultMode;
         
-        // TODO: aplicar modo por defecto
         this.selfContent.className = 'modo';
-        this.selfContent.innerHTML = '<button id="auto" class="btn-mode-selected">auto</button>\
-            <span>|</span>\
-            <button id="manual" class="btn-mode-unselected">manual</button>';
+
+        this.btnAuto = document.createElement('button');
+        this.btnAuto.addEventListener('click', () => this.updateContent(false));
+        this.btnAuto.textContent = 'auto';
+        this.selfContent.appendChild(this.btnAuto);
+
+        let span = document.createElement('span');
+        span.textContent = '|';
+        this.selfContent.appendChild(span);
+
+        this.btnManual = document.createElement('button');
+        this.btnManual.addEventListener('click', () => this.updateContent(true));
+        this.btnManual.textContent = 'manual';
+        this.selfContent.appendChild(this.btnManual);
+
+        this.updateContent(defaultMode);
+    }
+
+    /**
+     * Actualiza el modo
+     * @param {Boolean} data El modo de la máquina, automático (false) o manual (true)
+     */
+    updateContent(data) {
+        this.mode = data;
+        this.btnAuto.className = !this.mode ? 'btn-mode-selected' : 'btn-mode-unselected';
+        this.btnManual.className = this.mode ? 'btn-mode-selected' : 'btn-mode-unselected';
     }
 
     /**
