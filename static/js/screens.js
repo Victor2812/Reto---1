@@ -46,13 +46,34 @@ class ModeSelectorScreen extends Screen {
      */
     constructor(content, buttons, defaultMode) {
         super(content, buttons);
-        this.mode = defaultMode;
         
-        // TODO: aplicar modo por defecto
         this.selfContent.className = 'modo';
-        this.selfContent.innerHTML = '<div id="auto">auto</div>\
-            <div id="separador">|</div>\
-            <div id="manual">manual</div>';
+
+        this.btnAuto = document.createElement('button');
+        this.btnAuto.addEventListener('click', () => this.updateContent(false));
+        this.btnAuto.textContent = 'auto';
+        this.selfContent.appendChild(this.btnAuto);
+
+        let span = document.createElement('span');
+        span.textContent = '|';
+        this.selfContent.appendChild(span);
+
+        this.btnManual = document.createElement('button');
+        this.btnManual.addEventListener('click', () => this.updateContent(true));
+        this.btnManual.textContent = 'manual';
+        this.selfContent.appendChild(this.btnManual);
+
+        this.updateContent(defaultMode);
+    }
+
+    /**
+     * Actualiza el modo
+     * @param {Boolean} data El modo de la máquina, automático (false) o manual (true)
+     */
+    updateContent(data) {
+        this.mode = data;
+        this.btnAuto.className = !this.mode ? 'btn-mode-selected' : 'btn-mode-unselected';
+        this.btnManual.className = this.mode ? 'btn-mode-selected' : 'btn-mode-unselected';
     }
 
     /**
@@ -61,6 +82,20 @@ class ModeSelectorScreen extends Screen {
      */
     getMode() {
         return this.mode;
+    }
+}
+
+class LoadScreen extends Screen {
+    /**
+     * Crea la pantalla del selector de modo
+     * @param {Element} content Elemento contenedor de los contenidos
+     * @param {Element} buttons Elemento contenedor de los botones
+     */
+    constructor(content, buttons) {
+        super(content, buttons);
+        
+        this.selfContent.className = 'load';
+        this.selfContent.innerHTML = '<div class="loader"></div>';
     }
 }
 

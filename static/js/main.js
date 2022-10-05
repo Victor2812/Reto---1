@@ -9,6 +9,7 @@ window.onload = function() {
     let modeSelectorScreen = new ModeSelectorScreen(content, buttons, true);
     let matrixScreen = new MatrixScreen(content, buttons, matrix_size);
     let colorScreen = new ColorScreen(content, buttons);
+    let loadScreen = new LoadScreen(content, buttons);
     
     // Inicio de la app
     modeSelectorScreen.drawContent();
@@ -22,7 +23,7 @@ window.onload = function() {
         await manager.toggleState();
         
         if (await manager.getState()) {
-            matrixScreen.drawContent();
+            loadScreen.drawContent();
         } else {
             // modeSelectorScreen
             modeSelectorScreen.drawContent();
