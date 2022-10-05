@@ -2,7 +2,6 @@
     --color-light-main: #8d6448;
     --color-main: #613c21;
     --color-dark-main: #473123;
-
     --color-back: #e6e4d8;
 }
 
@@ -15,6 +14,7 @@
 body {
     display: grid;
     grid-template: minmax(min-content, max-content) 1fr minmax(min-content, max-content) / 1fr;
+
     min-height: 100vh;
     font-family: 'Montserrat';
     background-color: var(--color-back);
@@ -26,16 +26,18 @@ body {
 
 header {
     width: 100%;
+    background-image: url("../img/choco-dripping.svg");
+    height: 170px;
 }
 
 header .title {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
-    background-color: var(--color-main);
+    /*background-color: var(--color-main);*/
     color: var(--color-back);
     padding: 1rem;
 }
@@ -45,14 +47,36 @@ header .title h1 {
     font-size: 2.5rem;
 }
 
-header .title button {
+header .title button#onoff {
     border: none;
     background-color: transparent;
 }
 
+header .title button#onoff:not(.active) {
+    animation: start-button-anim ease-in-out 2.5s infinite;
+}
+
+@keyframes start-button-anim {
+    0% {
+        scale: 1;
+    }
+    50% {
+        scale: 1.25;
+    }
+}
+
+
 header .title button img {
     height: 2.5rem;
     aspect-ratio: 1 / 1;
+}
+
+header .title button.active img.off {
+    display: none;
+}
+
+header .title button:not(.active) img.on {
+    display: none;
 }
 
 /*
@@ -60,13 +84,17 @@ header .title button img {
 */
 
 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     padding: 1rem;
+    min-height: 100%;
 }
 
 main .content-screen {
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 main .content-screen .content {
@@ -76,14 +104,42 @@ main .content-screen .content {
     align-items: center;
 }
 
+main .content-screen .content img {
+    padding-bottom: 1.5em;
+}
+
+main .content-screen .content p {
+    color: var(--color-dark-main);
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 2.8rem;
+    padding: 0 2.8rem 0;
+}
+
 main .content-screen .content .modo {
     display: flex;
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    color: #473123;
     font-weight: 900;
     font-size: 3rem;
+}
+
+main .content-screen .content .matrix {
+    display: grid;
+    grid-template: repeat(5, 1fr) / repeat(5, 1fr);
+    gap: 0.5rem;
+
+    width: 25rem;
+    aspect-ratio: 1 /1;
+
+    padding: 0.5rem;
+
+    background-color: var(--color-dark-main);
+}
+
+main .content-screen .content .matrix .cell {
+    background-color: var(--color-back);
 }
 
 main .content-screen .buttons {
@@ -91,9 +147,10 @@ main .content-screen .buttons {
     flex-direction: row;
     justify-content: center;
     padding-top: 1rem;
+    padding-bottom: 2rem;
 }
 
-main .content-screen .buttons button {
+main .content-screen button {
     border: none;
     border-radius: 9999px;
 
@@ -106,22 +163,19 @@ main .content-screen .buttons button {
     
     background-color: var(--color-dark-main);
     overflow: hidden;
+
+    transition: all ease-in 0.09s;
 }
 
-main .content-screen .buttons button:hover {
+main .content-screen button:hover, button.active {
     background-color: var(--color-light-main);
     scale: 1.05;
-
-    transition: all ease-in 0.09s;
 }
 
-main .content-screen .buttons button:active {
+main .content-screen button:active {
     background-color: var(--color-dark-main);
     scale: 0.9;
-
-    transition: all ease-in 0.09s;
 }
-
 
 /*
     Footer

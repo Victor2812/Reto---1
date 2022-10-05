@@ -19,30 +19,26 @@
             <h1>.chocolate</h1>
 
             <!-- Temporal -->
-            <button id="onoff">
-                <img alt="" src="static/img/button_off.png" />
+            <button id="onoff" class="off">
+                <img aria-hidden="true" class="off" alt="" src="static/img/button_off.png" />
+                <img aria-hidden="true" class="on" alt="" src="static/img/button_on.png" />
             </button>
         </div>
-        <!-- TODO: SVG gotas chocolate -->
     </header>
     <main>
         <div class="content-screen">
             <div class="content">
-                <div class="modo">
-                    <div id="auto">auto</div>
-                    <div id="separador">|</div>
-                    <div id="manual">manual</div>
-                </div>
             </div>
             <div class="buttons">
-                <button>añadir</button>
-                <button>vaciar</button>
             </div>
         </div>
     </main>
     <footer>
         <p>sufr1miento &copy; 2022-2023</p>
     </footer>
+    <script src="static/js/screens.js"></script>
+    <script src="static/js/state.js"></script>
     <script src="static/js/main.js"></script>
+    <script src="static/js/vm-machine.js"></script>
 </body>
 </html>

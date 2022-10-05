@@ -1,18 +1,31 @@
-const auto = document.getElementById('auto');
-const manual = document.getElementById('manual');
+window.onload = function() {
+    const matrix_size = [5, 5];
 
-auto.addEventListener('click', function(e) {
-    auto.style.color = '#8D6448';
-    auto.style.textDecoration = 'underline';
+    const content = document.querySelector('.content-screen .content');
+    const buttons = document.querySelector('.content-screen .buttons');
 
-    manual.style.color = '#473123';
-    manual.style.textDecoration = 'none';
-});
+    const manager = new StateManager(new ConsoleMachine());
 
-manual.addEventListener('click', function(e) {
-    auto.style.color = '#473123';
-    auto.style.textDecoration = 'none';
+    let modeSelectorScreen = new ModeSelectorScreen(content, buttons, true);
+    let matrixScreen = new MatrixScreen(content, buttons, matrix_size);
+    let colorScreen = new ColorScreen(content, buttons);
+    
+    // Inicio de la app
+    modeSelectorScreen.drawContent();
 
-    manual.style.color = '#8D6448';
-    manual.style.textDecoration = 'underline';
-});
+    // Funcionalidad del botón de encendido y apagado
+    document.querySelector('#onoff').addEventListener('click', async function() {
+        this.classList.toggle('active');
+        
+        await manager.setMode(modeSelectorScreen.getMode());
+
+        await manager.toggleState();
+        
+        if (await manager.getState()) {
+            matrixScreen.drawContent();
+        } else {
+            // modeSelectorScreen
+            modeSelectorScreen.drawContent();
+        }
+    });
+};
