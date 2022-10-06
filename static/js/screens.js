@@ -1,3 +1,7 @@
+const CHOC_VACIO = 0;
+const CHOC_CONLECHE = 1;
+const CHOC_BLANCO = 2;
+
 class Screen {
     /**
      * Crea la pantalla
@@ -181,16 +185,20 @@ class MatrixScreen extends Screen {
         // Asumiendo que el tamaño de data es el mismo que el de la matriz
         for (let x = 0; x < this.size[0]; x++) {
             for (let y = 0; y < this.size[1]; y++) {
-                let cell = this.selfContent.querySelector(`#r${x}c${y}`);
+                let cell = this.selfContent.querySelector(`#c${x}_${y}`);
 
                 if (!cell) throw `La celda fila:${y} columna:${x} no existe.`
 
-                if (data[x][y]) {
+                if (data[x][y] === CHOC_BLANCO) {
                     // 1 = Chocolate blanco
-                    cell.className = 'blanco';
-                } else {
+                    cell.classList.add('blanco');
+                    cell.classList.remove('conleche');
+                } else if (data[x][y] === CHOC_CONLECHE) {
                     // 0 = Chocolate con leche
-                    cell.className = 'negro';
+                    cell.classList.add('conleche');
+                    cell.classList.remove('blanco');
+                } else{
+                    cell.className = 'cell';
                 }
             }
         }
@@ -256,10 +264,10 @@ class ColorScreen extends Screen {
     updateContent(data) {
         this.color = data;
 
-        if (data) {
+        if (data === CHOC_BLANCO) {
             this.img.src = 'static/img/choco-blanco.svg';
             this.text.textContent = 'blanco';
-        } else {
+        } else if (data === CHOC_CONLECHE) {
             this.img.src = 'static/img/choco-con-leche.svg';
             this.text.textContent = 'con leche';
         }
