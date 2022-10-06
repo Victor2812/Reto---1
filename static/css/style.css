@@ -266,6 +266,14 @@ main .content-screen .content .matrix .cell {
     background-color: var(--color-back);
 }
 
+main .content-screen .content .matrix .cell.blanco {
+    background-image: url(../img/choco-blanco.svg);
+}
+
+main .content-screen .content .matrix .cell.conleche {
+    background-image: url(../img/choco-con-leche.svg);
+}
+
 main .content-screen .content .matrix .cell.selected {
     animation: selected_cell 1s infinite ease-in-out;
     background-color: var(--color-dark-back);
