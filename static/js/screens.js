@@ -139,7 +139,7 @@ class MatrixScreen extends Screen {
             for (let y = 0; y < this.size[1]; y++) {
                 let cell = document.createElement('div');
                 cell.classList.add('cell');
-                cell.id = `r${x}c${y}`;
+                cell.id = `c${x}_${y}`;
                 cell.addEventListener('click', () => this.selectCell(cell.id))
                 this.selfContent.appendChild(cell);
             }
@@ -161,12 +161,15 @@ class MatrixScreen extends Screen {
             if (this.selected) {
                 this.selected.classList.remove('selected');
             }
-
-            this.selected = cell;
-            cell.classList.toggle('selected');
-
-            // Llamar al evento si está definido
-            this.onCellSelected && this.onCellSelected(cell);
+            if (this.selected != cell) {
+                this.selected = cell;
+                cell.classList.toggle('selected');
+    
+                // Llamar al evento si está definido
+                this.onCellSelected && this.onCellSelected(cell);
+            } else {
+                this.selected = undefined;
+            }
         }
     }
 
@@ -190,6 +193,17 @@ class MatrixScreen extends Screen {
                     cell.className = 'negro';
                 }
             }
+        }
+    }
+
+    /**
+     * Obtiene la posición seleccionada
+     * @returns Un array de dos objetos: X, Y
+     */
+    getSelectedPos() {
+        if (this.selected) {
+            let pos = this.selected.id.substring(1).split('_');
+            return [Number(pos[0]), Number(pos[1])]
         }
     }
 }
