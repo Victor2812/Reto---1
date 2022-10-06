@@ -13,7 +13,6 @@ window.onload = function() {
     document.querySelector('#onoff').addEventListener('click', async function() {
         this.classList.toggle('active');
         
-        await manager.setMode(modeSelectorScreen.getMode());
         await manager.toggleState();
     });
 };

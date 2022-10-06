@@ -35,14 +35,43 @@ class StateManager {
     constructor(content, buttons, matrix_size, machine) {
         this.machine = machine;
 
-        this.modeSelectorScreen = new ModeSelectorScreen(content, buttons, true);
+        this.modeSelectorScreen = new ModeSelectorScreen(content, buttons, false);
         this.matrixScreen = new MatrixScreen(content, buttons, matrix_size);
         this.colorScreen = new ColorScreen(content, buttons);
         this.loadScreen = new LoadScreen(content, buttons);
 
         this.currentScreen = this.modeSelectorScreen;
+
+        // Añadir los eventos de las pantallas
+        this.modeSelectorScreen.onModeChange = async (newMode) => await this.setMode(newMode);
+
+        this.matrixScreen.onAdd = () => this.#matrixFuncAdd();
+        this.matrixScreen.onClear = () => this.#matrixFuncClear();
     }
 
+    /**
+     * Función privada, lógica del botón "añadir" de la matriz
+     */
+    #matrixFuncAdd() {
+        let pos = this.matrixScreen.getSelectedPos();
+        if (pos) {
+            console.log(pos);
+        }
+    }
+
+    /**
+     * Función privada, lógica del botón "añadir" de la matriz
+     */
+    #matrixFuncClear() {
+        let pos = this.matrixScreen.getSelectedPos();
+        if (pos) {
+            console.log(pos);
+        }
+    }
+
+    /**
+     * Muestra la pantalla actual con sus botones si son necesarios
+     */
     async drawScreen() {
         let mode = await this.getMode();
         this.currentScreen.drawContent();
@@ -65,7 +94,7 @@ class StateManager {
             this.currentScreen = this.modeSelectorScreen;
         }
 
-        await this.showCurentScreen();
+        await this.drawScreen();
     }
 
     /**
