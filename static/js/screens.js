@@ -219,6 +219,11 @@ class ColorScreen extends Screen {
 
         this.color = false; // chocolate con leche (false), chocolate blanco (true)
 
+        // Eventos
+        this.onNext;
+        this.onCancel;
+
+        // Contenido
         this.selfContent.className = 'color-container';
 
         this.img = document.createElement('img');
@@ -233,6 +238,15 @@ class ColorScreen extends Screen {
         // parrafo con texto distintivo dependiendo del color
         this.text = document.createElement('p');
         this.selfContent.appendChild(this.text);
+
+        // Botones
+        this.selfButtons['next'] = document.createElement('button');
+        this.selfButtons['next'].textContent = 'siguiente';
+        this.selfButtons['next'].addEventListener('click', () => this.onNext && this.onNext());
+
+        this.selfButtons['cancel'] = document.createElement('button');
+        this.selfButtons['cancel'].textContent = 'cancelar';
+        this.selfButtons['cancel'].addEventListener('click', () => this.onCancel && this.onCancel());
     }
 
     /**
