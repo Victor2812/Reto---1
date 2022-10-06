@@ -33,8 +33,8 @@ class Screen {
      * Dibuja los botones en la pantalla
      */
     drawButtons() {
-        for (const b of this.selfButtons) {
-            this.buttons.appendChild(b);
+        for (let b in this.selfButtons) {
+            this.buttons.appendChild(this.selfButtons[b]);
         }
     }
 
