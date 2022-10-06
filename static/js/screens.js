@@ -158,7 +158,11 @@ class MatrixScreen extends Screen {
     selectCell(id) {
         let cell = this.selfContent.querySelector(`#${id}`);
         if (cell) {
-            this.selected = id;
+            if (this.selected) {
+                this.selected.classList.remove('selected');
+            }
+
+            this.selected = cell;
             cell.classList.toggle('selected');
 
             // Llamar al evento si está definido
