@@ -57,6 +57,10 @@ class ModeSelectorScreen extends Screen {
     constructor(content, buttons, defaultMode) {
         super(content, buttons);
         
+        // Eventos
+        this.onModeChange;
+
+        // Contenido
         this.selfContent.className = 'modo';
 
         this.btnAuto = document.createElement('button');
@@ -84,6 +88,9 @@ class ModeSelectorScreen extends Screen {
         this.mode = data;
         this.btnAuto.className = !this.mode ? 'btn-mode-selected' : 'btn-mode-unselected';
         this.btnManual.className = this.mode ? 'btn-mode-selected' : 'btn-mode-unselected';
+
+        // Llamar al evento
+        this.onModeChange && this.onModeChange(this.mode);
     }
 
     /**
