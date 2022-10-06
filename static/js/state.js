@@ -32,8 +32,23 @@ class ConsoleMachine extends BaseMachine {
 }
 
 class StateManager {
-    constructor(machine) {
+    constructor(content, buttons, matrix_size, machine) {
         this.machine = machine;
+
+        this.modeSelectorScreen = new ModeSelectorScreen(content, buttons, true);
+        this.matrixScreen = new MatrixScreen(content, buttons, matrix_size);
+        this.colorScreen = new ColorScreen(content, buttons);
+        this.loadScreen = new LoadScreen(content, buttons);
+
+        this.currentScreen = this.modeSelectorScreen;
+    }
+
+    async drawScreen() {
+        let mode = await this.getMode();
+        this.currentScreen.drawContent();
+        if (mode) {
+            this.currentScreen.drawButtons();
+        }
     }
 
     /**
@@ -42,6 +57,15 @@ class StateManager {
     async toggleState() {
         let newState = !await this.machine.getState();
         await this.machine.changeState(newState);
+
+        // Comprobar el estado de la máquina (por si ha cambiado o no)
+        if (await this.getState()) {
+            this.currentScreen = this.matrixScreen;
+        } else {
+            this.currentScreen = this.modeSelectorScreen;
+        }
+
+        await this.showCurentScreen();
     }
 
     /**
