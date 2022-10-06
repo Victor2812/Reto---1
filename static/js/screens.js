@@ -10,6 +10,7 @@ class Screen {
 
         // Contenido propio de la pantalla
         this.selfContent = document.createElement('div');
+        this.selfButtons = [];
     }
 
     /**
@@ -26,6 +27,15 @@ class Screen {
     drawContent() {
         this.clearScreen();
         this.content.appendChild(this.selfContent);
+    }
+
+    /**
+     * Dibuja los botones en la pantalla
+     */
+    drawButtons() {
+        for (const b of this.selfButtons) {
+            this.buttons.appendChild(b);
+        }
     }
 
     /**
@@ -109,15 +119,43 @@ class MatrixScreen extends Screen {
     constructor(content, buttons, size) {
         super(content, buttons);
         this.size = size;
+        this.selected;
 
+        // Eventos
+        this.onCellSelected;
+        this.onAdd;
+        this.onClear;
+
+        // Contenido
         this.selfContent.className = 'matrix';
         for (let x = 0; x < this.size[0]; x++) {
             for (let y = 0; y < this.size[1]; y++) {
                 let cell = document.createElement('div');
                 cell.classList.add('cell');
                 cell.id = `r${x}c${y}`;
+                cell.addEventListener('click', () => this.selectCell(cell.id))
                 this.selfContent.appendChild(cell);
             }
+        }
+
+        // Botones
+        this.selfButtons['add'] = document.createElement('button');
+        this.selfButtons['add'].textContent = 'añadir';
+        this.selfButtons['add'].addEventListener('click', () => this.onAdd && this.onAdd());
+
+        this.selfButtons['clear'] = document.createElement('button');
+        this.selfButtons['clear'].textContent = 'vaciar';
+        this.selfButtons['clear'].addEventListener('click', () => this.onClear && this.onClear());
+    }
+
+    selectCell(id) {
+        let cell = this.selfContent.querySelector(`#${id}`);
+        if (cell) {
+            this.selected = id;
+            cell.classList.toggle('selected');
+
+            // Llamar al evento si está definido
+            this.onCellSelected && this.onCellSelected(cell);
         }
     }
 

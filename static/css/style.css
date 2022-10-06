@@ -3,6 +3,7 @@
     --color-main: #613c21;
     --color-dark-main: #473123;
     --color-back: #e6e4d8;
+    --color-dark-back: #d1bb96;
 }
 
 * {
@@ -263,6 +264,20 @@ main .content-screen .content .matrix {
 
 main .content-screen .content .matrix .cell {
     background-color: var(--color-back);
+}
+
+main .content-screen .content .matrix .cell.selected {
+    animation: selected_cell 1s infinite ease-in-out;
+    background-color: var(--color-dark-back);
+}
+
+@keyframes selected_cell {
+    0% {
+        scale: 1;
+    }
+    50% {
+        scale: 0.9;
+    }
 }
 
 /*
