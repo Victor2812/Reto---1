@@ -270,6 +270,6 @@ class ColorScreen extends Screen {
      * @returns Chocolate blanco (true) o con leche (false)
      */
     getColor() {
-        return self.color;
+        return this.color;
     }
 }
