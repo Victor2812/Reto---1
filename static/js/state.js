@@ -22,6 +22,7 @@ class ConsoleMachine extends BaseMachine {
     #state = false;
     #mode = false;
     #matrix = [];
+    #autoInterval;
 
     constructor() {
         super();
@@ -39,6 +40,27 @@ class ConsoleMachine extends BaseMachine {
         }
     }
 
+    async #autoMatrix() {
+        let available = []; // array de posiciones
+        for (let x = 0; x < 5; x++) {
+            for (let y = 0; y < 5; y++) {
+                if (this.#matrix[x][y] == CHOC_VACIO) {
+                    available.push([x, y]);
+                }
+            }
+        }
+
+        if (available.length > 0) {
+            let pos = available[Math.floor(Math.random() * available.length)];
+            let c =  await this.getNextChocolate();
+            this.#matrix[pos[0]][pos[1]] = c;
+        } else {
+            // Finalizar
+            this.#autoInterval && clearInterval();
+            this.#autoInterval = undefined;
+        }
+    }
+
     async changeState(newState) {
         console.log('changeState => ' + newState);
         this.#state = newState;
@@ -46,6 +68,13 @@ class ConsoleMachine extends BaseMachine {
             // Recuperar valores por defecto
             this.#setMatrix();
             this.#mode = false;
+
+            // Limpiar intervalo del modo automático
+            this.#autoInterval && clearInterval();
+            this.#autoInterval = undefined;
+        } else if (!this.#mode) {
+            // Encendida en modo automático
+            this.#autoInterval = setInterval(async () => await this.#autoMatrix(), 250);
         }
     }
 
@@ -137,8 +166,7 @@ class StateManager {
             await this.machine.setMatrixPos(pos[0], pos[1], CHOC_VACIO);
 
             // Actualizar pantalla de la matriz
-            let matrix = await this.machine.getMatrix()
-            this.matrixScreen.updateContent(matrix);
+            await this.updateMatrix();
         }
     }
 
@@ -151,8 +179,7 @@ class StateManager {
             await this.machine.setMatrixPos(pos[0], pos[1], choc);
 
             // Actualizar pantalla de matriz
-            let matrix = await this.machine.getMatrix()
-            this.matrixScreen.updateContent(matrix);
+            await this.updateMatrix();
 
             // Cambiar de pantalla
             this.currentScreen = this.matrixScreen;
@@ -167,6 +194,11 @@ class StateManager {
         await this.machine.wasteCurrentChocolate();
         this.currentScreen = this.matrixScreen;
         this.drawScreen();
+    }
+
+    async updateMatrix() {
+        let matrix = await this.machine.getMatrix()
+        this.matrixScreen.updateContent(matrix);
     }
 
     /**
@@ -200,11 +232,10 @@ class StateManager {
             this.currentScreen = this.matrixScreen;
 
             // Actualizar pantalla de la amtriz
-            let matrix = await this.machine.getMatrix()
-            this.matrixScreen.updateContent(matrix);
+            await this.updateMatrix();
 
             if (!mode) {
-                // MODO AUTOMÁTICO
+                this.autoModeTimer = setInterval(async () => await this.updateMatrix(), 500, this);
             }
         } else {
             // APAGAR
@@ -212,7 +243,7 @@ class StateManager {
 
             // Finalizar timer del modo automático si estaba definido
             this.autoModeTimer && clearInterval(this.autoModeTimer);
-            console.log(this.autoModeTimer);
+            this.autoModeTimer = undefined;
         }
 
         await this.drawScreen();
