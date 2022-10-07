@@ -56,8 +56,9 @@ class ConsoleMachine extends BaseMachine {
             this.#matrix[pos[0]][pos[1]] = c;
         } else {
             // Finalizar
-            this.#autoInterval && clearInterval();
+            this.#autoInterval && clearInterval(this.#autoInterval);
             this.#autoInterval = undefined;
+            console.log('auto mode ended');
         }
     }
 
@@ -70,7 +71,7 @@ class ConsoleMachine extends BaseMachine {
             this.#mode = false;
 
             // Limpiar intervalo del modo automático
-            this.#autoInterval && clearInterval();
+            this.#autoInterval && clearInterval(this.#autoInterval);
             this.#autoInterval = undefined;
         } else if (!this.#mode) {
             // Encendida en modo automático
