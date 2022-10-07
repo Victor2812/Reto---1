@@ -1,15 +1,21 @@
 class BaseMachine {
+    #state = false;
+    #mode = false;
 
     async changeState(newState) {
+        this.#state = newState;
     }
 
     async getState() {
+        return this.#state;
     }
 
     async changeMode(newMode) {
+        this.#mode = newMode;
     }
 
     async getMode() {
+        return this.#mode;
     }
 }
 
