@@ -162,17 +162,7 @@ main .content-screen .content .modo {
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    /*
-    font-weight: 900;
-    font-size: 3rem;
-    */
 }
-/*
-main .content-screen .content .modo {
-    display: flex;
-    justify-content: center;
-}
-*/
 main .content-screen .content .modo button {
     border: none;
     font-size: 3.5rem;
@@ -241,9 +231,8 @@ main .content-screen .content p {
     font-size: 3rem;
     line-height: 2.8rem;
     padding: 0 2.8rem 0;
+    text-align: center;
 }
-
-
 
 /*
     Main - Matrix Screen
@@ -339,4 +328,90 @@ footer {
 
     color: var(--color-back);
     background-color: var(--color-main);
+}
+
+/*
+    Tablet
+*/
+@media (min-width: 600px) {
+
+    /*
+        Mode Selector Screen
+    */
+    main .content-screen .content .modo button {
+        font-size: 5.5rem;
+    }
+    
+    main .content-screen .content .modo .btn-mode-unselected:after {
+        height: 0.8rem;
+    }
+    
+    
+    main .content-screen .content .modo .btn-mode-selected:after {
+        height: 0.8rem;
+    }
+    
+    main .content-screen .content .modo span {
+        font-size: 5.5rem;
+    }
+
+    /*
+        Containers
+    */
+
+    main .content-screen {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    main .content-screen .content {
+        flex-grow: 0;
+    }
+
+    main .content-screen .buttons {
+        flex-direction: column;
+        margin-left: 1rem;
+        padding: 0;
+    }
+
+    /*
+        Buttons
+    */
+
+    main .content-screen .buttons button {
+
+        border-radius: 15px;
+        margin: 1rem;
+        padding: 0;
+        font-size: 2rem;
+        height: 11rem;
+        width: 11rem;
+    }
+
+
+}
+
+/*
+    PC
+*/
+@media (min-width: 1000px) {
+    /*
+        Mode Selector Screen
+    */
+    main .content-screen .content .modo button {
+        font-size: 9.5rem;
+    }
+    
+    main .content-screen .content .modo .btn-mode-unselected:after {
+        height: 1.2rem;
+    }
+    
+    
+    main .content-screen .content .modo .btn-mode-selected:after {
+        height: 1.2rem;
+    }
+    
+    main .content-screen .content .modo span {
+        font-size: 9.5rem;
+    }
 }
