@@ -4,7 +4,7 @@ window.onload = function() {
     const content = document.querySelector('.content-screen .content');
     const buttons = document.querySelector('.content-screen .buttons');
 
-    const manager = new StateManager(content, buttons, matrix_size, new ConsoleMachine());
+    const manager = new StateManager(content, buttons, matrix_size, new VMMachine());
     
     // Inicio de la app
     manager.drawScreen();
