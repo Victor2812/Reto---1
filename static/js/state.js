@@ -43,8 +43,9 @@ class ConsoleMachine extends BaseMachine {
         console.log('changeState => ' + newState);
         this.#state = newState;
         if (!this.#state) {
-            // Si se apaga limpiar la matriz
+            // Recuperar valores por defecto
             this.#setMatrix();
+            this.#mode = false;
         }
     }
 
@@ -101,13 +102,16 @@ class StateManager {
         this.currentScreen = this.modeSelectorScreen;
 
         // Añadir los eventos de las pantallas
-        this.modeSelectorScreen.onModeChange = async (newMode) => await this.setMode(newMode);
+        this.modeSelectorScreen.onModeChange = async (newMode) => await this.machine.changeMode(newMode);
 
         this.matrixScreen.onAdd = async () => await this.#matrixFuncAdd();
         this.matrixScreen.onClear = async () => await this.#matrixFuncClear();
 
         this.colorScreen.onNext = async () => await this.#colorFuncNext();
         this.colorScreen.onCancel = async () => await this.#colorFuncCancel();
+
+        // Variables del modo automático
+        this.autoModeTimer;
     }
 
     /**
@@ -169,7 +173,7 @@ class StateManager {
      * Muestra la pantalla actual con sus botones si son necesarios
      */
     async drawScreen() {
-        let mode = await this.getMode();
+        let mode = await this.machine.getMode();
         this.currentScreen.drawContent();
         if (mode) {
             this.currentScreen.drawButtons();
@@ -180,45 +184,38 @@ class StateManager {
      * Cambia el estado en el que se encuentra la máquina, de encendido a apagado y viceversa
      */
     async toggleState() {
+        // Establece el modo de la pantalla de modos
+        await this.machine.changeMode(this.modeSelectorScreen.getMode());
+
+        // Actualiza el estado de la máquina
         let newState = !await this.machine.getState();
         await this.machine.changeState(newState);
 
-        // Comprobar el estado de la máquina (por si ha cambiado o no)
-        if (await this.getState()) {
+        // Obtiene el modo actual (por si la orden previa ha fallado)
+        let mode = await this.machine.getMode();
+
+        // Comprobar el estado de la máquina (por si la orden previa ha fallado)
+        if (await this.machine.getState()) {
+            // ENCENDER
             this.currentScreen = this.matrixScreen;
 
             // Actualizar pantalla de la amtriz
             let matrix = await this.machine.getMatrix()
             this.matrixScreen.updateContent(matrix);
+
+            if (!mode) {
+                // MODO AUTOMÁTICO
+            }
         } else {
+            // APAGAR
             this.currentScreen = this.modeSelectorScreen;
+
+            // Finalizar timer del modo automático si estaba definido
+            this.autoModeTimer && clearInterval(this.autoModeTimer);
+            console.log(this.autoModeTimer);
         }
 
         await this.drawScreen();
-    }
-
-    /**
-     * Obtiene el estado en el que se encuentra la máquina, encendida o apagada
-     * @returns True o False
-     */
-    async getState() {
-        return await this.machine.getState();
-    }
-
-    /**
-     * Cambia el modo de la máquina
-     * @param {Boolean} mode Automático (false) o manual (true)
-     */
-    async setMode(mode) {
-        await this.machine.changeMode(mode);
-    }
-
-    /**
-     * Obtiene el modo en el que la máquina está funcionando
-     * @returns Manual (true) o automático (False)
-     */
-    async getMode() {
-        return await this.machine.getMode();
     }
 
     async isMatrixPosBusy(x, y) {
