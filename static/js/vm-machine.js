@@ -51,7 +51,9 @@ class VMMachine extends BaseMachine {
         let estado = await response.json();
         return estado;
     }
-
+    async changeModel() {
+        
+    }
     /**
      * Genera formularios invisibles para cambiar de estado el modo dentro del PLC, necesita llmada desde el botonx
      */
