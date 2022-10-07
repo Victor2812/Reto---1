@@ -4,40 +4,43 @@ class VMMachine extends BaseMachine {
      * @returns boolean and array of position x & y
      */
     async getVariablesVM() {
-        let response = await fetch(".../variables/variables.html");
+        let response = await fetch("static/variables/variables.html");
         let variables = await response.json();
+		console.log(variables);
         return variables;
     }
 
     async setVariableVM(name, value) {
-        let response = await fetch(".../variables/variables.html", {
+        let response = await fetch("static/variables/variables.html", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json;"
+                "Content-Type": "x-www-form-urlencoded;"
             },
-            body: JSON.stringify({
-                nombre: valor
-            })
+            body: encodeURI(name) + '=' + encodeURI(value)
         });
+		if (!response.ok) {
+			console.log('error en el plc');
+		}
         return response;
     }
 
     async changeState(newState){
-        let response = await this.setVariableVM('martxa', newState);
+		console.log('new state', newState);
+        let response = await this.setVariableVM('"wonka".martxa', newState ? 1 : 0);
         return await response.json();
     }
 
     async getState() {
-        return await this.getVariablesVM()['Martxa'];
+        return (await this.getVariablesVM()).martxa;
     }
 
     async changeMode(newMode) {
-        let response = await this.setVariableVM('modo', newMode);
+        let response = await this.setVariableVM('"wonka".modo', newMode ? 1 : 0);
         return await response.json();
     }
 
     async getMode() {
-        return await this.getVariablesVM()['Modo'];
+        return (await this.getVariablesVM()).modo;
     }
 
     async setMatrixPos(x, y, value) {
